@@ -1,0 +1,26 @@
+
+# Dependencias de Node.js
+node_modules/
+
+# Credenciales y variables privadas
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+client_secret*.json
+service-account*.json
+
+# Archivos temporales
+*.log
+.DS_Store
+Thumbs.db
+
+# Configuración local del editor
+.vscode/
+
+# Datos de prueba exportados
+datos_privados/
+*.sqlite
+*.db

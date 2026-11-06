@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <title>Sistema Escolar - Lector QR</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .contenedor {
+      background: white;
+      max-width: 480px;
+      margin: auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px #0001;
+    }
+
+    h2 { color: #1e3a8a; }
+
+    #lector {
+      width: 100%;
+      margin: 20px auto;
+    }
+
+    #resultado {
+      background: #e2e8f0;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .correcto {
+      background: #dcfce7 !important;
+      color: #166534;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenedor">
+    <h2>Sistema Escolar</h2>
+    <h3>Control de Asistencia QR</h3>
+
+    <p>Activa la cámara y escanea un código QR.</p>
+
+    <div id="lector"></div>
+
+    <div id="resultado">
+      Esperando lectura...
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+  <script>
+    const resultado = document.getElementById("resultado");
+
+    if (typeof Html5QrcodeScanner === "undefined") {
+      resultado.textContent =
+        "No se pudo cargar la biblioteca QR. Revisa Internet.";
+    } else {
+      const lector = new Html5QrcodeScanner(
+        "lector",
+        {
+          fps: 10,
+          qrbox: { width: 220, height: 220 }
+        },
+        false
+      );
+
+      let ultimoCodigo = "";
+
+      function codigoDetectado(texto) {
+        if (texto === ultimoCodigo) return;
+
+        ultimoCodigo = texto;
+
+        resultado.textContent =
+          "Código QR detectado correctamente";
+
+        resultado.classList.add("correcto");
+
+        console.log("Lectura QR exitosa");
+      }
+
+      lector.render(codigoDetectado);
+    }
+  </script>
+</body>
+</html>
